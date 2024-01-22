@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { getDays } from "./utils/getDays";
 import { getThirtyDays, getThirtyOneDays } from "./utils/getDates";
@@ -8,15 +8,22 @@ import { getMonthNames } from "./utils/getMonthNames";
 // import 'react-calendar/dist/Calendar.css'
 
 function App() {
-
   const currentYear = new Date();
   const currMonth = new Date().getMonth();
   const days = getDays();
   const months = getMonths();
   const [month, setMonth] = useState(1);
-  const [selectedDates, setSelectedDates] = useState([]);
+  const [selectedDates, setSelectedDates] = useState(["22"]);
 
   const dates = month % 2 == 0 ? getThirtyDays() : getThirtyOneDays();
+
+  useEffect(() => {
+    document.querySelectorAll(".date").forEach((date) => {
+      if (date.innerText == "22") {
+        date.classList.add("selected");
+      }
+    });
+  }, []);
 
   const handlePrevClick = () => {
     if (month == 1) {
@@ -42,7 +49,7 @@ function App() {
       </div>
       <div className="currentYearAndMonth">
         <p>{currentYear.getFullYear()}</p>
-        <p>{getMonthNames()[month-1]}</p>
+        <p>{getMonthNames()[month - 1]}</p>
       </div>
       <div className="month">
         <div className="days">
@@ -54,11 +61,13 @@ function App() {
           {dates.map((date, i) => (
             <p
               key={i}
+              value={date}
               onClick={(e) => {
                 e.target.classList.toggle("selected");
                 e.target.classList.contains("selected") &&
-                  setSelectedDates([...selectedDates, date])
+                  setSelectedDates([...selectedDates, date]);
               }}
+              className="date"
             >
               {date}
             </p>

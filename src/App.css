@@ -14,11 +14,11 @@ p{
   border: 1px solid black;
 }
 
-.App{
+/* .App{
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .buttons{
   width: 100%;
@@ -47,4 +47,25 @@ p{
   display: grid;
   grid-template-columns: repeat(7,1fr);
   border: 1px solid #000;
+}
+
+.selectedDates{
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  >p{
+    border: none;
+  }
+}
+
+@media screen and (width<600px) {
+  body{
+    padding: 10px;
+  }
+}
+
+@media screen and (width<450px) {
+  p{
+    padding: 0.25rem;
+  }
 }
